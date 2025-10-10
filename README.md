@@ -1,4 +1,4 @@
-# Chatagotchi
+# Chatagotchi - OpenAI ChatGPT Apps SDK Demo
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
@@ -12,6 +12,15 @@ Built with [Stytch](https://stytch.com), [Alpic](https://alpic.ai), and [Vercel]
 </td>
 </tr>
 </table>
+
+<div>
+    <a href="https://www.loom.com/share/eef58ead11f644c5a6a3ad30cb7279fc">
+      <p>Building an Interactive ChatGPT Game with Stytch and Alpic - Watch Video</p>
+    </a>
+    <a href="https://www.loom.com/share/eef58ead11f644c5a6a3ad30cb7279fc">
+      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/eef58ead11f644c5a6a3ad30cb7279fc-39ee3aec7635a91d-full-play.gif">
+    </a>
+  </div>
 
 ## What is Chatagotchi?
 
