@@ -73,7 +73,16 @@ export default function Home() {
       <div>
         <p className="text-lg font-semibold mb-2">To use this demo:</p>
         <ul className="list-disc list-inside space-y-1 ml-4">
-          <li>Enable Developer Mode in ChatGPT</li>
+          <li>
+            Enable{' '}
+            <a
+              href="https://platform.openai.com/docs/guides/developer-mode"
+              className="text-blue-600 hover:underline"
+            >
+              Developer Mode
+            </a>{' '}
+            in ChatGPT
+          </li>
           <li>
             Connect to the MCP Server running at{' '}
             <code className="bg-gray-100 px-2 py-1 rounded">
