@@ -2,10 +2,11 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import { useOpenAiGlobal } from '../utils/use-openai-global.ts';
 import { SPECIES_EMOJIS, TurnResult } from './types';
+import { useToolOutput } from '../utils/use-tool-output.ts';
 
 function App() {
   const input = useOpenAiGlobal('toolInput');
-  const output = useOpenAiGlobal('toolOutput') as TurnResult | null;
+  const output = useToolOutput<TurnResult>();
 
   // Show loading state when output is null
   if (output === null) {
