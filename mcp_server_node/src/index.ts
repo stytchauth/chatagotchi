@@ -20,7 +20,7 @@ if (!authDomain) {
 app.use(
   '/.well-known/oauth-protected-resource',
   metadataHandler(async () => ({
-    resource: new URL('http://localhost:3000').href,
+    resource: new URL(`http://localhost:${config.MCP_HTTP_PORT}`).href,
     authorization_servers: [authDomain],
     scopes_supported: ['openid', 'email', 'profile'],
   }))
@@ -39,7 +39,7 @@ const bearerAuthMiddleware = requireBearerAuth({
   verifier: {
     verifyAccessToken: stytchVerifier,
   },
-  resourceMetadataUrl: 'http://localhost:3000',
+  resourceMetadataUrl: `http://localhost:${config.MCP_HTTP_PORT}/.well-known/oauth-protected-resource`,
 });
 
 app.post('/mcp', bearerAuthMiddleware, async (req: Request, res: Response) => {
@@ -53,10 +53,16 @@ app.post('/mcp', bearerAuthMiddleware, async (req: Request, res: Response) => {
     });
 
     const server = getServer();
+    console.time('mcp:server.connect');
     await server.connect(transport);
+    console.timeEnd('mcp:server.connect');
 
+    console.time('mcp:handleRequest');
     await transport.handleRequest(req, res, req.body);
+    console.timeEnd('mcp:handleRequest');
   } catch (error) {
+    console.timeEnd('mcp:server.connect');
+    console.timeEnd('mcp:handleRequest');
     console.error('Error handling MCP request:', error);
     if (!res.headersSent) {
       res.status(500).json({

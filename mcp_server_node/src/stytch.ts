@@ -16,10 +16,11 @@ function getClient(): Client {
 }
 
 export const stytchVerifier = async (token: string): Promise<AuthInfo> => {
-  console.log('Token is being verified', typeof token);
+  console.time('stytch:introspectTokenLocal');
   try {
     const { audience, scope, expires_at, ...rest } =
       await getClient().idp.introspectTokenLocal(token);
+    console.timeEnd('stytch:introspectTokenLocal');
     return {
       token,
       clientId: audience as string,
@@ -28,6 +29,7 @@ export const stytchVerifier = async (token: string): Promise<AuthInfo> => {
       extra: rest,
     } satisfies AuthInfo;
   } catch (error) {
+    console.timeEnd('stytch:introspectTokenLocal');
     console.error('FAILED AUTH');
     console.error(error);
     throw error;
@@ -37,10 +39,13 @@ export const stytchVerifier = async (token: string): Promise<AuthInfo> => {
 export async function getUserTrustedMetadata(
   userId: string
 ): Promise<Record<string, unknown>> {
+  console.time('stytch:getUserMetadata');
   try {
     const response = await getClient().users.get({ user_id: userId });
+    console.timeEnd('stytch:getUserMetadata');
     return response.trusted_metadata || {};
   } catch (error) {
+    console.timeEnd('stytch:getUserMetadata');
     console.error('Failed to get user trusted metadata', error);
     return {};
   }
@@ -50,12 +55,15 @@ export async function updateUserTrustedMetadata(
   userId: string,
   metadata: Record<string, unknown>
 ): Promise<void> {
+  console.time('stytch:updateUserMetadata');
   try {
     await getClient().users.update({
       user_id: userId,
       trusted_metadata: metadata,
     });
+    console.timeEnd('stytch:updateUserMetadata');
   } catch (error) {
+    console.timeEnd('stytch:updateUserMetadata');
     console.error('Failed to update user trusted metadata', error);
     throw error;
   }
