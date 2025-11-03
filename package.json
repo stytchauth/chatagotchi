@@ -27,7 +27,7 @@
     "tailwindcss": "4.1.11",
     "tsx": "^4.20.4",
     "typescript": "^5.9.2",
-    "vite": "^7.1.1"
+    "vite": "^7.1.11"
   },
   "dependencies": {
     "@stytch/react": "^19.12.0",
